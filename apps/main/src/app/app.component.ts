@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
         return
       }
 
-      this.timeUntilInWords = formatDistanceToNow(date, {locale: de})
+      this.timeUntilInWords = `Es sind noch ${formatDistanceToNow(date, {locale: de})}`
     })
   }
 }
