@@ -1,9 +1,9 @@
 module.exports = {
   prefix: '',
   purge: {
-    enabled: true,
+    enabled: process.env.NODE_ENV === 'production',
     content: [
-      './apps/**/*.{html,ts}',
+      './apps/main/**/*.{html,ts}',
     ]
   },
   darkMode: 'media', // or 'media' or 'class'

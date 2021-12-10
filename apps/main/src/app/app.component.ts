@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { formatDistanceToNow, parseISO, isValid, isFuture } from 'date-fns';
 import { de } from 'date-fns/locale'
+import { combineLatest, debounceTime, startWith } from 'rxjs';
 
 @Component({
   selector: 'wlnb-root',
@@ -10,10 +11,15 @@ import { de } from 'date-fns/locale'
 export class AppComponent implements OnInit {
   timeUntilInWords = ''
   targetDateControl = new FormControl(new Date())
+  targetEventNameControl = new FormControl('')
 
   ngOnInit(): void {
-    this.targetDateControl.valueChanges.subscribe(val => {
-      const date = parseISO(val)
+    combineLatest([
+      this.targetDateControl.valueChanges,
+      this.targetEventNameControl.valueChanges.pipe(startWith(''), debounceTime(500))
+    ])
+    .subscribe(([dateAsString, eventName]) => {
+      const date = parseISO(dateAsString)
 
       if (!isValid(date)) {
         this.timeUntilInWords = 'Bitte gib ein gültiges Datum ein.'
@@ -26,6 +32,9 @@ export class AppComponent implements OnInit {
       }
 
       this.timeUntilInWords = `Es sind noch ${formatDistanceToNow(date, {locale: de})}`
+      if (eventName) {
+        this.timeUntilInWords = `${this.timeUntilInWords} bis ${eventName}`
+      }
     })
   }
 }

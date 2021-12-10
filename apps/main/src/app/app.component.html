@@ -1,14 +1,23 @@
 <div class="flex h-screen">
   <div class="m-auto text-center">
-    <h1 class="text-4xl">WieLangeNoch.Biz…?</h1>
+    <h1 class="text-4xl font-bold text-gray-400">Wie lange noch biz…?</h1>
 
-    <div class="mt-5 p-8 bg-pink-100 filter drop-shadow-md bordered-md rounded-md">
-      <label for="target-date-input" class="block">
-        Gib ein Datum ein:
-      </label>
-      <input id="target-date-input" type="date" [formControl]="targetDateControl">
+    <div class="mt-5 p-8 bg-gray-700 filter drop-shadow-md bordered-md rounded-md">
+      <div>
+        <label for="target-date-input" class="block text-gray-400">
+          Wann?:
+        </label>
+        <input id="target-date-input" type="date" [formControl]="targetDateControl">
+      </div>
 
-      <p class="mt-2" *ngIf="timeUntilInWords">{{timeUntilInWords}}</p>
+      <div class="mt-2">
+        <label for="target-event-name-input" class="block text-gray-400">
+          Was?:
+        </label>
+        <input id="target-event-name-input" type="text" [formControl]="targetEventNameControl">
+      </div>
+
+      <p class="mt-4 text-white" *ngIf="timeUntilInWords">{{timeUntilInWords}}</p>
     </div>
   </div>
 </div>
