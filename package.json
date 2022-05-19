@@ -40,7 +40,7 @@
     "@nrwl/linter": "13.4.1",
     "@nrwl/nx-cloud": "latest",
     "@nrwl/tao": "13.4.1",
-    "@nrwl/workspace": "13.10.4",
+    "@nrwl/workspace": "13.10.5",
     "@types/jest": "27.4.1",
     "@types/node": "16.11.35",
     "@typescript-eslint/eslint-plugin": "5.8.1",
