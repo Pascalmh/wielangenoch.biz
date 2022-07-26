@@ -2,6 +2,7 @@
   "version": 1,
   "projects": {
     "main": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "projectType": "application",
       "root": "apps/main",
       "sourceRoot": "apps/main/src",
@@ -85,7 +86,7 @@
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/main"],
           "options": {
-            "jestConfig": "apps/main/jest.config.js",
+            "jestConfig": "apps/main/jest.config.ts",
             "passWithNoTests": true
           }
         }
@@ -93,6 +94,7 @@
       "tags": []
     },
     "main-e2e": {
+      "$schema": "../../node_modules/nx/schemas/project-schema.json",
       "root": "apps/main-e2e",
       "sourceRoot": "apps/main-e2e/src",
       "projectType": "application",

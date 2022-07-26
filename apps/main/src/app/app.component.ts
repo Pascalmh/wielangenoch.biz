@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { formatDistanceToNow, parseISO, isValid, isFuture } from 'date-fns';
 import { de } from 'date-fns/locale'
 import { combineLatest, debounceTime, startWith } from 'rxjs';
@@ -10,8 +10,8 @@ import { combineLatest, debounceTime, startWith } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   timeUntilInWords = ''
-  targetDateControl = new FormControl(new Date())
-  targetEventNameControl = new FormControl('')
+  targetDateControl = new UntypedFormControl(new Date())
+  targetEventNameControl = new UntypedFormControl('')
 
   ngOnInit(): void {
     combineLatest([
