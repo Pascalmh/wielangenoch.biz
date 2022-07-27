@@ -3,6 +3,7 @@ import { UntypedFormControl } from '@angular/forms';
 import { formatDistanceToNow, parseISO, isValid, isFuture } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { combineLatest, debounceTime, startWith } from 'rxjs';
+import { StorageService } from '@wlnb/data-access-storage';
 
 @Component({
   selector: 'wlnb-root',
@@ -13,11 +14,28 @@ export class AppComponent implements OnInit {
   targetDateControl = new UntypedFormControl(new Date());
   targetEventNameControl = new UntypedFormControl('');
 
+  constructor(private readonly storageService: StorageService) {}
+
   ngOnInit(): void {
+    let savedEventTitle = '';
+    let savedEventDate = null;
+
+    const savedEvent = this.storageService.get('events')
+      ? JSON.parse(this.storageService.get('events'))
+      : [];
+
+    if (savedEvent.length > 0) {
+      savedEventTitle = savedEvent[0].title;
+      savedEventDate = savedEvent[0].date;
+
+      this.targetEventNameControl.setValue(savedEventTitle);
+      this.targetDateControl.setValue(savedEventDate);
+    }
+
     combineLatest([
-      this.targetDateControl.valueChanges,
+      this.targetDateControl.valueChanges.pipe(startWith(savedEventDate)),
       this.targetEventNameControl.valueChanges.pipe(
-        startWith(''),
+        startWith(savedEventTitle),
         debounceTime(500)
       ),
     ]).subscribe(([dateAsString, eventName]) => {
@@ -41,5 +59,16 @@ export class AppComponent implements OnInit {
         this.timeUntilInWords = `${this.timeUntilInWords} bis ${eventName}`;
       }
     });
+  }
+
+  save() {
+    const events = [
+      {
+        title: this.targetEventNameControl.value,
+        date: this.targetDateControl.value,
+      },
+    ];
+
+    this.storageService.set('events', JSON.stringify(events));
   }
 }
