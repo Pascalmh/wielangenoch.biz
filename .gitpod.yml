@@ -1,3 +1,10 @@
+ports:
+  - port: 4200
+    onOpen: open-preview
+    visibility: public
+    name: Website
+    description: Preview of Website
+
 tasks:
   - init: npm ci
     command: npm run start
