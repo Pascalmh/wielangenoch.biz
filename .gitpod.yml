@@ -6,5 +6,5 @@ ports:
     description: Preview of Website
 
 tasks:
-  - init: npm ci
+  - init: npm ci && npm install -g nx
     command: npm run start
