@@ -39,7 +39,7 @@
     "@nrwl/jest": "14.5.7",
     "@nrwl/linter": "14.5.7",
     "@nrwl/nx-cloud": "14.4.1",
-    "@nrwl/tao": "14.5.7",
+    "@nrwl/tao": "14.5.8",
     "@nrwl/workspace": "14.5.7",
     "@types/jest": "28.1.7",
     "@types/node": "16.11.49",
