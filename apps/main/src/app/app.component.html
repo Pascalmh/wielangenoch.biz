@@ -2,6 +2,13 @@
   <div class="m-auto text-center">
     <h1 class="text-4xl font-bold text-gray-400">Wie lange noch biz…?</h1>
 
+    <wlnb-display-time-remaining
+      *ngIf="targetEventNameControl.value && targetDateControl.value"
+      [what]="targetEventNameControl.value"
+      [when]="targetDateControl.value"
+    >
+    </wlnb-display-time-remaining>
+
     <div
       class="mt-5 p-8 bg-gray-700 filter drop-shadow-md bordered-md rounded-md"
     >
