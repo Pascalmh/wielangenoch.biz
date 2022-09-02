@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { formatDistanceToNow, parseISO, isValid, isFuture } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { combineLatest, debounceTime, startWith } from 'rxjs';
 import { StorageService } from '@wlnb/data-access-storage';
+import { DisplayTimeRemainingComponent } from './display-time-remaining/display-time-remaining.component';
+import { NgIf } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'wlnb-root',
   templateUrl: './app.component.html',
+  imports: [NgIf, ReactiveFormsModule, DisplayTimeRemainingComponent],
 })
 export class AppComponent implements OnInit {
   timeUntilInWords = '';
