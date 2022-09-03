@@ -11,6 +11,10 @@ if (environment.production) {
 
 export const ROUTES: Route[] = [
   {
+    path: 'neu',
+    loadComponent: () => import('./app/add-event/add-event.component').then((c) => c.AddEventComponent)
+  },
+  {
     path: 'dashboard',
     loadComponent: () =>
       import('./app/dashboard/dashboard.component').then(
@@ -21,7 +25,7 @@ export const ROUTES: Route[] = [
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(BrowserAnimationsModule),
     provideRouter(ROUTES),
+    importProvidersFrom(BrowserAnimationsModule),
   ],
 });
