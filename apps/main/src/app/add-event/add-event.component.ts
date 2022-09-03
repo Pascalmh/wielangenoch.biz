@@ -11,42 +11,44 @@ import { combineLatest, startWith, debounceTime } from 'rxjs';
   standalone: true,
   imports: [NgIf, ReactiveFormsModule],
   template: `
-    <div
-      class="mt-5 p-8 bg-gray-700 filter drop-shadow-md bordered-md rounded-md"
-    >
-      <div>
-        <label for="target-date-input" class="block text-gray-400">
-          Wann?:
-        </label>
-        <input
-          id="target-date-input"
-          type="date"
-          [formControl]="targetDateControl"
-        />
-      </div>
+    <div class="m-auto text-center">
+      <div
+        class="mt-5 p-8 bg-gray-700 filter drop-shadow-md bordered-md rounded-md"
+      >
+        <div>
+          <label for="target-date-input" class="block text-gray-400">
+            Wann?:
+          </label>
+          <input
+            id="target-date-input"
+            type="date"
+            [formControl]="targetDateControl"
+          />
+        </div>
 
-      <div class="mt-2">
-        <label for="target-event-name-input" class="block text-gray-400">
-          Was?:
-        </label>
-        <input
-          id="target-event-name-input"
-          type="text"
-          [formControl]="targetEventNameControl"
-        />
-      </div>
+        <div class="mt-2">
+          <label for="target-event-name-input" class="block text-gray-400">
+            Was?:
+          </label>
+          <input
+            id="target-event-name-input"
+            type="text"
+            [formControl]="targetEventNameControl"
+          />
+        </div>
 
-      <p class="mt-4 text-white" *ngIf="timeUntilInWords">
-        {{ timeUntilInWords }}
-      </p>
+        <p class="mt-4 text-white" *ngIf="timeUntilInWords">
+          {{ timeUntilInWords }}
+        </p>
 
-      <div class="mt-4">
-        <button
-          (click)="save()"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-        >
-          Speichern
-        </button>
+        <div class="mt-4">
+          <button
+            (click)="save()"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+          >
+            Speichern
+          </button>
+        </div>
       </div>
     </div>
   `,
