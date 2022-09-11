@@ -58,6 +58,7 @@ export class AddEventComponent implements OnInit {
   timeUntilInWords = '';
   targetDateControl = new FormControl<Date>(new Date());
   targetEventNameControl = new FormControl('');
+  savedEvent: { title: string; date: Date }[] = [];
 
   constructor(private readonly storageService: StorageService) {}
 
@@ -65,13 +66,16 @@ export class AddEventComponent implements OnInit {
     let savedEventTitle = '';
     let savedEventDate = null;
 
-    const savedEvent = this.storageService.get('events')
-      ? JSON.parse(this.storageService.get('events'))
+    this.savedEvent = this.storageService.get('events')
+      ? JSON.parse(this.storageService.get('events')).map((event: any) => ({
+        title: event.title,
+        date: new Date(event.date),
+      }))
       : [];
 
-    if (savedEvent.length > 0) {
-      savedEventTitle = savedEvent[0].title;
-      savedEventDate = savedEvent[0].date;
+    if (this.savedEvent.length > 0) {
+      savedEventTitle = this.savedEvent[0].title;
+      savedEventDate = this.savedEvent[0].date;
 
       this.targetEventNameControl.setValue(savedEventTitle);
       this.targetDateControl.setValue(savedEventDate);
@@ -83,10 +87,8 @@ export class AddEventComponent implements OnInit {
         startWith(savedEventTitle),
         debounceTime(500)
       ),
-    ]).subscribe(([dateAsString, eventName]) => {
-      const date = parseISO(dateAsString);
-
-      if (!isValid(date)) {
+    ]).subscribe(([date, eventName]) => {
+      if (!date || !isValid(date)) {
         this.timeUntilInWords = 'Bitte gib ein gültiges Datum ein.';
         return;
       }

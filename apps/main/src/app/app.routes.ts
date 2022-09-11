@@ -6,7 +6,7 @@ export const APP_ROUTES: Route[] = [
       loadComponent: () => import('./add-event/add-event.component').then((c) => c.AddEventComponent)
     },
     {
-      path: 'dashboard',
+      path: '',
       loadComponent: () =>
         import('./dashboard/dashboard.component').then(
           (c) => c.DashboardComponent

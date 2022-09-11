@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { AsyncPipe, NgForOf } from '@angular/common';
+import { AsyncPipe, DatePipe, NgForOf } from '@angular/common';
+import { StorageService } from '@wlnb/data-access-storage';
 
 @Component({
   standalone: true,
@@ -19,29 +18,22 @@ import { AsyncPipe, NgForOf } from '@angular/common';
     MatGridListModule,
     AsyncPipe,
     NgForOf,
+    DatePipe,
   ],
 })
-export class DashboardComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 },
-        ];
-      }
+export class DashboardComponent implements OnInit {
+  cards: { title: string; date: Date }[] = [];
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 },
-      ];
-    })
-  );
+  constructor(private readonly storageService: StorageService) {}
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  ngOnInit(): void {
+    this.cards = this.storageService.get('events')
+      ? JSON.parse(this.storageService.get('events')).map((event: any) => ({
+          title: event.title,
+          date: new Date(event.date),
+        }))
+      : [];
+
+    console.log('cards', this.cards);
+  }
 }
