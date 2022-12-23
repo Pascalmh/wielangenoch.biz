@@ -33,7 +33,5 @@ export class DashboardComponent implements OnInit {
           date: new Date(event.date),
         }))
       : [];
-
-    console.log('cards', this.cards);
   }
 }
